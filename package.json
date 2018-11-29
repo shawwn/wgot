@@ -68,7 +68,7 @@
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
     "mkdirp": "^0.5.1",
-    "url-to-path": "^0.0.11",
+    "url-to-path": "^0.0.12",
     "window-fetch": "^0.0.9"
   }
 }

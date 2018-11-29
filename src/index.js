@@ -107,13 +107,16 @@ module.exports.usage = function usage() {
 }
 
 module.exports.save = async function save(url, data, options) {
-    const p = path.parse(urlToPath({url, output: options.output}));
-    mkdirp.sync(p.dir);
-    const fullPath = path.join(p.dir, p.base);
-    if (fullPath.length > WGOT_MAX_PATH_LENGTH) {
-        console.warn(`wgot: path too long: ${fullPath}`);
-    } else {
-        fs.writeFileSync(fullPath, data);
+    const filepath = urlToPath({url, output: options.output});
+    if (filepath != null) {
+        const p = path.parse(filepath);
+        mkdirp.sync(p.dir);
+        const fullPath = path.join(p.dir, p.base);
+        if (fullPath.length > WGOT_MAX_PATH_LENGTH) {
+            console.warn(`wgot: path too long: ${fullPath}`);
+        } else {
+            fs.writeFileSync(fullPath, data);
+        }
     }
     return data;
 };
