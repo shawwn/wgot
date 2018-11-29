@@ -42,9 +42,9 @@ import TestServer from './server';
 // import Blob from '../src/blob.js';
 
 // test subjects
-import util, {
+import main, {
 } from '../src/';
-import utilOrig from '../src/util.js';
+import mainOrig from '../src/main.js';
 
 const supportToString = ({
 	[Symbol.toStringTag]: 'z'
@@ -63,6 +63,9 @@ after(done => {
 });
 
 describe('wgot', () => {
+	it('should test', function() {
+		expect(main()).to.equal(0);
+	});
 	// it('should return a promise', function() {
 	// 	url = `${base}hello`;
 	// 	const p = fetch(url);

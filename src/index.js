@@ -1,3 +1,5 @@
-import util from './util';
+import main from './main';
 
-export {util};
+export default main;
+
+export {main};
