@@ -2,13 +2,14 @@ const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage');
 const PACKAGE = require('../package.json');
 
-// class FileDetails {
-//     constructor (filename) {
-//         const fs = require('fs');
-//         this.filename = filename;
-//         this.exists = fs.existsSync(filename);
-//     }
-// }
+class PathDetails {
+    constructor (filename) {
+        const fs = require('fs');
+        this.filename = filename;
+        this.exists = fs.existsSync(filename);
+        this.isDirectory = this.exists ? fs.statSync(filename).isDirectory() : false;
+    }
+}
 
 const optionDefinitions = [
     {
@@ -21,6 +22,15 @@ const optionDefinitions = [
         name: 'version',
         type: Boolean,
         description: 'Display version number'
+    },
+    {
+        name: 'url',
+        defaultOption: true,
+        type: String,
+    },
+    {
+        name: 'output',
+        type: filename => new PathDetails(filename)
     },
     // {
     //     name: 'forcewrite',
@@ -69,7 +79,7 @@ const optionDefinitions = [
     // },
 ];
 
-function usage() {
+export function usage() {
     return commandLineUsage([
         {
             header: `${PACKAGE.name}@${PACKAGE.version}`,
@@ -85,7 +95,6 @@ function usage() {
     ]);
 }
 
-
 export default function main(options = {help: true}) {
     if (options.help) {
         console.log(usage());
@@ -94,6 +103,14 @@ export default function main(options = {help: true}) {
     if (options.version) {
         console.log(PACKAGE.version);
         return 0;
+    }
+    if (options.url == null) {
+        console.error('Missing url');
+        console.log(usage());
+        return 1;
+    }
+    if (options.output == null) {
+        options.output = process.cwd();
     }
     return 0;
 }
