@@ -1,7 +1,7 @@
 export default function tweakDefault() {
   return {
     transformBundle: function (source) {
-      var lines = source.split('\n');
+      var lines = ['#!/usr/bin/env node', ...source.split('\n')];
       for (var i = 0; i < lines.length; i++) {
         var line = lines[i];
         var matches = /^exports\['default'] = (.*);$/.exec(line);
