@@ -1,6 +1,6 @@
 {
   "name": "wgot",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "wget simulator",
   "main": "lib/index.js",
   "browser": "./browser.js",
