@@ -59,6 +59,7 @@
     "whatwg-url": "^5.0.0"
   },
   "dependencies": {
+    "command-line-args": "^5.0.2",
+    "command-line-usage": "^5.0.5"
   }
 }
-
