@@ -95,7 +95,11 @@ export function usage() {
     ]);
 }
 
-export default function main(options = {help: true}) {
+export function saveToDisk(url, data) {
+    console.log([url, data]);
+}
+
+export default function main(options = {help: true}, saver = saveToDisk) {
     if (options.help) {
         console.log(usage());
         return 0;
