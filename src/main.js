@@ -1,6 +1,11 @@
 const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage');
 const PACKAGE = require('../package.json');
+const mkdirp = require('mkdirp');
+const urlToPath = require('url-to-path');
+const path = require('path');
+const fs = require('fs');
+const windowFetch = require('window-fetch');
 
 class PathDetails {
     constructor (filename) {
@@ -95,11 +100,25 @@ export function usage() {
     ]);
 }
 
-export function saveToDisk(url, data) {
-    console.log([url, data]);
+export async function save(url, data, options) {
+    const p = path.parse(urlToPath({url, output: options.output}));
+    mkdirp.sync(p.dir);
+    fs.writeFileSync(path.join(p.dir, p.base), data);
+    return data;
+}
+export async function fetch(url) {
+    const res = await(windowFetch(url));
+    return await(res.text());
 }
 
-export default function main(options = {help: true}, saver = saveToDisk) {
+export function convert(result) {
+    return result;
+}
+
+const _main = async (options = {help: true}, fetcher = fetch, saver = save) => {
+    if (typeof options === 'string') {
+        options = {url: options};
+    }
     if (options.help) {
         console.log(usage());
         return 0;
@@ -113,19 +132,33 @@ export default function main(options = {help: true}, saver = saveToDisk) {
         console.log(usage());
         return 1;
     }
-    if (options.output == null) {
-        options.output = process.cwd();
+    const text = await convert((typeof(fetcher) === 'function') ? await(fetcher(options.url)) : fetcher);
+    if (text != null) {
+        await saver(options.url, text, options);
     }
     return 0;
 }
 
+export default async function main(options = {help: true}, fetcher = fetch, saver = save) {
+    return await(_main(options, fetcher, saver));
+}
+
+export async function cli() {
+    const options = commandLineArgs(optionDefinitions);
+    const result = await _main(options);
+    if (typeof result === 'number') {
+        if (result !== 0) {
+            process.exit(result);
+        }
+    } else if (result != null) {
+        console.log(result);
+    }
+    process.exit(0);
+}
+
 
 if (require.main === module) {
-    const options = commandLineArgs(optionDefinitions);
-    const code = main(options);
-    if (typeof code === 'number') {
-        if (code !== 0) {
-            process.exit(code);
-        }
-    }
+    (async () => {
+        await cli();
+    })();
 }

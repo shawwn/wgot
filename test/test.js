@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 
 // test tools
 import chai from 'chai';
@@ -63,8 +64,8 @@ after(done => {
 });
 
 describe('wgot', () => {
-	it('should test', function() {
-		expect(main()).to.equal(0);
+	it('should test', async function() {
+		expect(await main()).to.equal(0);
 	});
 	// it('should return a promise', function() {
 	// 	url = `${base}hello`;

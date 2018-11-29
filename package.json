@@ -62,9 +62,11 @@
     "whatwg-url": "^5.0.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
     "mkdirp": "^0.5.1",
-    "url-to-path": "^0.0.5"
+    "url-to-path": "^0.0.5",
+    "window-fetch": "^0.0.9"
   }
 }
