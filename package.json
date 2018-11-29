@@ -2,14 +2,15 @@
   "name": "wgot",
   "version": "0.0.3",
   "description": "wget simulator",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "browser": "./browser.js",
   "module": "lib/index.es.js",
   "bin": {
-    "wgot": "lib/index.js"
+    "wgot": "src/cli.js"
   },
   "files": [
-    "lib/index.js",
+    "src/index.js",
+    "src/cli.js",
     "lib/index.es.js",
     "browser.js"
   ],
@@ -17,6 +18,7 @@
     "node": "4.x || >=6.0.0"
   },
   "scripts": {
+    "start": "node src/cli.js",
     "build": "cross-env BABEL_ENV=rollup rollup -c",
     "prepare": "npm run build",
     "test": "cross-env BABEL_ENV=test mocha --compilers js:babel-register test/test.js",
@@ -66,7 +68,7 @@
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
     "mkdirp": "^0.5.1",
-    "url-to-path": "^0.0.5",
+    "url-to-path": "^0.0.10",
     "window-fetch": "^0.0.9"
   }
 }

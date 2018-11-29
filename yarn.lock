@@ -3192,10 +3192,10 @@ url-search-params@^0.9.0:
   resolved "https://registry.yarnpkg.com/url-search-params/-/url-search-params-0.9.0.tgz#e71d7764a6503533cbfe9771b2963cb61ea1c225"
   integrity sha1-5x13ZKZQNTPL/pdxspY8th6hwiU=
 
-url-to-path@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/url-to-path/-/url-to-path-0.0.5.tgz#cf79e00cb46f7310f73544d8c3b612bcd600638c"
-  integrity sha512-OkoGUUUks7wkOUzyG3ScAD7dLq0LMRklV8NilAORCFBvZj6BNgfbcRmShZmzWKFLOXh4V1Ls9X3wk7jM0mCXnw==
+url-to-path@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/url-to-path/-/url-to-path-0.0.10.tgz#5c1143e9ff22a37e7a8afaa12a2070b95fcf1479"
+  integrity sha512-6jfetgW4JORG3tPMHxJVDjMjS9rSdL2AffUQLOZuhJix5rF4ikA+2J+YZR8oRWhYAm3G6QQK/10QCdM1sJWb8A==
   dependencies:
     command-line-args "^5.0.2"
     command-line-usage "^5.0.5"

@@ -43,9 +43,7 @@ import TestServer from './server';
 // import Blob from '../src/blob.js';
 
 // test subjects
-import main, {
-} from '../src/';
-import mainOrig from '../src/main.js';
+import main from '../src/';
 
 const supportToString = ({
 	[Symbol.toStringTag]: 'z'
