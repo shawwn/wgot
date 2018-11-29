@@ -5,6 +5,9 @@
   "main": "lib/index.js",
   "browser": "./browser.js",
   "module": "lib/index.es.js",
+  "bin": {
+    "wgot": "lib/index.js"
+  },
   "files": [
     "lib/index.js",
     "lib/index.es.js",
