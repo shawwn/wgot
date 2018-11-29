@@ -7,6 +7,8 @@ const path = require('path');
 const fs = require('fs');
 const windowFetch = require('window-fetch');
 
+const WGOT_MAX_PATH_LENGTH = 255;
+
 class PathDetails {
     constructor (filename) {
         const fs = require('fs');
@@ -107,17 +109,22 @@ module.exports.usage = function usage() {
 module.exports.save = async function save(url, data, options) {
     const p = path.parse(urlToPath({url, output: options.output}));
     mkdirp.sync(p.dir);
-    fs.writeFileSync(path.join(p.dir, p.base), data);
+    const fullPath = path.join(p.dir, p.base);
+    if (fullPath.length > WGOT_MAX_PATH_LENGTH) {
+        console.warn(`wgot: path too long: ${fullPath}`);
+    } else {
+        fs.writeFileSync(fullPath, data);
+    }
     return data;
-}
+};
 module.exports.fetch = async function fetch(url) {
     const res = await(windowFetch(url));
     return await(res.text());
-}
+};
 
 module.exports.convert = function convert(result) {
     return result;
-}
+};
 
 const _main = async (options = {help: true}, fetcher = module.exports.fetch, saver = module.exports.save) => {
     const usage = module.exports.usage;
@@ -142,11 +149,11 @@ const _main = async (options = {help: true}, fetcher = module.exports.fetch, sav
         await saver(options.url, text, options);
     }
     return 0;
-}
+};
 
 module.exports.main = async function main(options = {help: true}, fetcher = module.exports.fetch, saver = module.exports.save) {
     return await(_main(options, fetcher, saver));
-}
+};
 
 module.exports.cli = async function cli() {
     const options = commandLineArgs(optionDefinitions);
@@ -159,7 +166,7 @@ module.exports.cli = async function cli() {
         console.log(result);
     }
     process.exit(0);
-}
+};
 
 if (require.main === module) {
     module.exports.cli();
